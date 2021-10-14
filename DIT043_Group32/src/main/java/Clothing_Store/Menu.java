@@ -1,13 +1,13 @@
 package Clothing_Store;
 
 import facade.Facade;
-
-
+import Clothing_Store.UserInput;
+import itemStore.ItemCtrl;
 
 
 public class Menu {
-	
-	
+
+
 	private static Facade facade = new Facade();
 	
 	
@@ -31,7 +31,7 @@ public class Menu {
 		}     
 		
 	// changed from private to public 
-	    public static void getInput(int input, String itemID, String itemName, double unitPrice, int amount, String reviewComment, int reviewGrade, int reviewNumber) {      
+	    public static void getInput(int input, String itemID, String itemName, double unitPrice, int amount, String reviewComment, int reviewGrade, int reviewNumber, String newName, double newPrice) {      
 	   
 	 	
 	    	  
@@ -46,7 +46,7 @@ public class Menu {
 		            "2. Remove an Item. \n"+ 
 					"3. Print all registered Items. \n" +
 		            "4. Buy an Item. \n" +    
-					"5. Update an item’s name." + 
+					"5. Update an item’s name. \n" + 
 		            "6. Update an item’s price. \n" +
 					"7. Print a specific item \n ");
 					input=UserInput.readInt("Type an option number:" );
@@ -60,23 +60,26 @@ public class Menu {
 				break;
 		
 			    case 1:
-				facade.createItem(itemID, itemName,unitPrice); 
-				//Created parameters
-				break;
+				facade.createItem(itemID, itemName,unitPrice);
+	            break;
 			    case 2: 
 			    facade.removeItem(itemID);
 			    break;
 			    case 3:
-			    facade.printItem(itemID);
+			    facade.printAllItems();
 			    break;
 			    case 4:
-			    facade. containsItem(itemID);
-			    break;
-			    case 5:
 			    facade.buyItem(itemID, amount);
 			    break;
-			    //case 6:
-			    	//to be finished(epic5)
+			    case 5:
+			    facade.updateItemName(itemID, newName);
+			    break;
+			    case 6:
+			    facade.updateItemPrice(itemID, newPrice);
+			    break;
+			    case 7:
+			    	facade.printItem(itemID);
+			    break;
 			}
 		    
 			    }else if(input==2) {
@@ -115,7 +118,7 @@ public class Menu {
 			    			facade.getItemCommentsPrinted(itemID);
 			    			break;
 			    		case 6:
-			    			facade.getPrintedReviews(itemID);
+			    			facade.printAllReviews();
 			    			break;
 			    		case 7:
 			    			facade.printMostReviewedItems();
@@ -171,10 +174,10 @@ public class Menu {
 				    			facade.getUnitsSolds(itemID);
 				    			break;
 				    		case 7:
-				    			facade.printAllTransactions();
+				    			facade.printItemTransactions(itemID);
 				    			break;
 				    		case 8:
-				    			facade.printMostProfitableItems(); //Not sure if its the right method used here 
+				    			facade.printMostProfitableItems(); 
 				    			break;
 				    		
 			    		

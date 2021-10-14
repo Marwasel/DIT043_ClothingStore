@@ -1,8 +1,9 @@
 package facade;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import itemStore.ItemCtrl;
+import
 
 public class Facade {
 
@@ -13,8 +14,8 @@ public class Facade {
 
     
     
-    public String createItem(String itemID, String itemName, double unitPrice){
-        return "";
+    public static String createItem(String itemID, String itemName, double unitPrice){
+        return ItemCtrl.createItem(itemID, itemName, unitPrice);
     }
 
     public String printItem(String itemID) {
