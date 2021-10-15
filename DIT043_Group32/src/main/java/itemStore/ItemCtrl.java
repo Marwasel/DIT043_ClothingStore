@@ -1,31 +1,32 @@
 package itemStore;
-
-
-
-import Clothing_Store.UserInput;
-
-import java.util.HashMap;
 import facade.Facade;
+import java.util.HashMap;
+
 
 public class ItemCtrl {
 
 
+	public static HashMap<String, Item> itemList = new HashMap<String, Item>();
 
-	public static void createItem(){
+	public static String createItem(String itemID, String itemName, double unitPrice) {
 
 
-		HashMap<String, Item> list = new HashMap<String, Item>();
-		{
-
-			String itemID = UserInput.readLine("Type the item's ID: ");
-			String itemName = UserInput.readLine("Type the item's name: ");
-			double unitPrice = UserInput.readDouble("Type the item's price per unit: ");
-
+		if (itemID.isEmpty() || itemName.isEmpty() || unitPrice <= 0) {
+			System.out.println("Invalid data for item.");
+		} else {
 			Item item = new Item(itemID, itemName, unitPrice);
-			list.put(itemID, item);
+			itemList.put(itemID, item);
 
-			Facade.createItem(itemID, itemName, unitPrice);
 		}
 
+		Facade.createItem(itemID, itemName, unitPrice);
+
+		return itemID;
 	}
-}
+
+		public String removeItem (String itemID){
+
+			return "";
+		}
+	}
+

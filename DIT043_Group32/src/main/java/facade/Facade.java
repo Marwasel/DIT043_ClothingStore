@@ -1,19 +1,21 @@
 package facade;
 
+import ItemReviews.ReviewCtrl;
+import itemStore.ItemCtrl;
+
 import java.util.List;
 import java.util.Map;
-import itemStore.ItemCtrl;
-import
+
 
 public class Facade {
 
-    
+    private static Facade facade = new Facade(); //moved here
+
     public Facade(){
 
     }
 
-    
-    
+
     public static String createItem(String itemID, String itemName, double unitPrice){
         return ItemCtrl.createItem(itemID, itemName, unitPrice);
     }
@@ -38,11 +40,13 @@ public class Facade {
 
     
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return "";
+
+        return ReviewCtrl.reviewItem();
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
-        return "";
+
+        return"";
     }
 
     public String getItemCommentsPrinted(String itemID) {
@@ -65,28 +69,24 @@ public class Facade {
 
     	/*HashMap<String, Integer> reviewNumber = new HashMap<String, Integer>();
         reviewNumber.put(itemID, reviewGrade);
-        
-   
-        
+
+
+
        System.out.println(reviewNumber.size());
-       
-    
+
+
         return (reviewNumber.size()); */
         
         return -1;
     }
 
     
- // added a parameter reviewGrade and reviewComment (got removed but code needs to be fixed) 
+
     public String getPrintedItemReview(String itemID, int reviewNumber) {
     	
-    	/*   if ( ! itemID.contains(itemID)) {
-         System.out.println( itemID + "was not registered yet”");
-    
-       itemID = UserInput.readLine("Add the item ID you want to grade:");
-    
+
        
-   	  reviewGrade = UserInput.readInt("Give the item a grade: ");
+   	 /* reviewGrade = UserInput.readInt("Give the item a grade: ");
        
        if (1 <= reviewGrade && reviewGrade <= 5) {
     	  
