@@ -64,18 +64,13 @@ public class Facade {
     
     
     public int getNumberOfReviews(String itemID) {
-    	
 
 
     	/*HashMap<String, Integer> reviewNumber = new HashMap<String, Integer>();
         reviewNumber.put(itemID, reviewGrade);
+       System.out.println(reviewNumber.size()); */
 
 
-
-       System.out.println(reviewNumber.size());
-
-
-        return (reviewNumber.size()); */
         
         return -1;
     }

@@ -65,6 +65,7 @@ public class Menu {
 							ItemCtrl.createItem(itemID, itemName, unitPrice);
 							break;
 						case 2:
+							String removeId = UserInput.readLine("type the item ID you want to remove: ");
 							ItemCtrl.removeItem(itemID);
 							break;
 						case 3:
