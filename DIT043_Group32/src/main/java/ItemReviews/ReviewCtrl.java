@@ -1,7 +1,8 @@
 package ItemReviews;
 
-import java.util.ArrayList;
 import itemStore.ItemCtrl;
+
+import java.util.ArrayList;
 
 
 public class ReviewCtrl {
@@ -13,10 +14,10 @@ public class ReviewCtrl {
         static ArrayList<Reviews> reviewList = new ArrayList<Reviews>();
 
 
-        public String reviewItem (String itemID, String reviewComment,int reviewGrade){
+        public static String reviewItem (String itemID, String reviewComment,int reviewGrade){
 
-            //Not able to get access to itemList in ItemCtrl
-            if (!itemList.containsKey(itemID) || reviewComment.isEmpty() || reviewGrade <= 0) {
+
+            if (!ItemCtrl.itemList.contains(itemID) || reviewComment.isEmpty() || reviewGrade <= 0) {
                 System.out.println("Invalid data for item.");
             } else {
                 Reviews review = new Reviews(itemID, reviewComment, reviewGrade);
@@ -25,7 +26,6 @@ public class ReviewCtrl {
                 System.out.println("Your item review was registered successfully.");
 
             }
-            return review;
-
+            return "" ;
         }
     }

@@ -11,12 +11,12 @@ public class Facade {
 
     private static Facade facade = new Facade(); //moved here
 
-    public Facade(){
+    public Facade() {
 
     }
 
 
-    public static String createItem(String itemID, String itemName, double unitPrice){
+    public String createItem(String itemID, String itemName, double unitPrice){
         return ItemCtrl.createItem(itemID, itemName, unitPrice);
     }
 
@@ -41,7 +41,8 @@ public class Facade {
     
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
 
-        return ReviewCtrl.reviewItem();
+       return ReviewCtrl.reviewItem(itemID, reviewComment, reviewGrade);
+
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
