@@ -4,14 +4,17 @@ import itemStore.Item;
 
 
 
-public class Reviews {
- String itemID;
+ class Reviews {
+String itemID;
 int reviewGrade;
 String reviewComment;
 int reviewNumber;
 
+Item itemAccess = new Item();
 
 Reviews review = new Reviews(itemID, reviewGrade, reviewComment, reviewNumber);
+
+
 
     public Reviews(String itemID, int reviewGrade, String reviewComment, int reviewNumber) {
 
@@ -25,6 +28,20 @@ public Reviews(String itemID, String reviewComment, int reviewGrade ) {
     this.reviewComment = reviewComment;
     this.reviewGrade = reviewGrade;
 }
+
+     public Reviews() {
+
+     }
+
+
+     String getItemID(){
+         return itemID;
+     }
+
+     void setItemID(){
+         this.itemID = itemID;
+     }
+
 
     int getReviewGrade(){
 
@@ -55,7 +72,7 @@ public Reviews(String itemID, String reviewComment, int reviewGrade ) {
 
    @Override
     public String toString() {
-       return "Review(s) for" + itemID + ":" + Item.itemName + "." + Item.unitPrice;  //Cant get access to variables(private) in the Item class
+       return "Review(s) for" + itemID + ":" + itemAccess.itemName + "." + itemAccess.unitPrice ;
     }
 
 }

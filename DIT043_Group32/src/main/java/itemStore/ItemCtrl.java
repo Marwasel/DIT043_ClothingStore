@@ -3,6 +3,9 @@ import java.util.ArrayList;
 
 public class ItemCtrl {
 
+	Item itemAccess = new Item();
+
+
 
 	public ArrayList<Item> itemList = new ArrayList<Item>();
 

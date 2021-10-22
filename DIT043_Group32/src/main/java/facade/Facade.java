@@ -1,7 +1,7 @@
 package facade;
 
 import ItemReviews.ReviewCtrl;
-import ItemReviews.Reviews;
+;
 import itemStore.ItemCtrl;
 
 import java.util.List;
@@ -16,9 +16,13 @@ public class Facade {
 
     }
 
+ItemCtrl itemCtrlAccess = new ItemCtrl();
+ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
+
+
 
     public String createItem(String itemID, String itemName, double unitPrice){
-        return ItemCtrl.createItem(itemID, itemName, unitPrice);
+        return itemCtrlAccess.createItem(itemID, itemName, unitPrice);
     }
 
     public String printItem(String itemID) {
@@ -42,18 +46,18 @@ public class Facade {
     
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
 
-       return ReviewCtrl.reviewItem(itemID, reviewComment, reviewGrade);
+       return reviewCtrlAccess.reviewItem(itemID, reviewComment, reviewGrade);
 
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
 
-        return ReviewCtrl.reviewItem(itemID,"", reviewGrade);
+        return reviewCtrlAccess.reviewItem(itemID,"", reviewGrade);
     }
 
     public String getItemCommentsPrinted(String itemID) {
 
-        return ReviewCtrl.getItemCommentsPrinted(itemID);
+        return reviewCtrlAccess.getItemCommentsPrinted(itemID);
     }
 
     public List<String> getItemComments(String itemID) {
@@ -63,7 +67,7 @@ public class Facade {
 
     public double getItemMeanGrade(String itemID) {
 
-        return ReviewCtrl.getItemMeanGrade(itemID);
+        return reviewCtrlAccess.getItemMeanGrade(itemID);
     }
    
     
@@ -71,37 +75,37 @@ public class Facade {
     public int getNumberOfReviews(String itemID) {
 
 
-        return ReviewCtrl.getNumberOfReviews(itemID);
+        return reviewCtrlAccess.getNumberOfReviews(itemID);
     }
 
     
 
     public String getPrintedItemReview(String itemID, int reviewNumber) {
 
-        return ReviewCtrl.getPrintedItemReview(itemID,reviewNumber);
+        return reviewCtrlAccess.getPrintedItemReview(itemID,reviewNumber);
 
     }
 
     public String getPrintedReviews(String itemID) {
-        return ReviewCtrl.getPrintedReviews(itemID);
+        return reviewCtrlAccess.getPrintedReviews(itemID);
     }
 
     public String printMostReviewedItems() {
 
-        return ReviewCtrl.printMostReviewedItems();
+        return reviewCtrlAccess.printMostReviewedItems();
     }
 
     public List<String> getMostReviewedItems() {
 
-        return ReviewCtrl.getMostReviewedItems();
+        return reviewCtrlAccess.getMostReviewedItems();
     }
 
     public List<String> getLeastReviewedItems() {
-        return ReviewCtrl.getLeastReviewedItems();
+        return reviewCtrlAccess.getLeastReviewedItems();
     }
 
     public String printLeastReviewedItems() {
-        return ReviewCtrl.printLeastReviewedItems();
+        return reviewCtrlAccess.printLeastReviewedItems();
     }
     
     
@@ -152,7 +156,7 @@ public class Facade {
     public String printAllReviews() {
 
 
-        return ReviewCtrl.printAllReviews();
+        return reviewCtrlAccess.printAllReviews();
     }
 
     public String updateItemName(String itemID, String newName) {

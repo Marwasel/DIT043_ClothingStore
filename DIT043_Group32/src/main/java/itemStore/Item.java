@@ -1,17 +1,21 @@
 package itemStore;
 
 
+import java.util.ArrayList;
 
 public class Item {
 
-String itemID;
- String itemName;
- double unitPrice ;
- int amount;
+ public ArrayList<Item> itemList = new ArrayList<Item>();
+
+  String itemID;
+ public String itemName;
+ public double unitPrice ;
+ public int amount;
 
 
 Item item = new Item(itemID, itemName, unitPrice);
 Item items = new Item(itemID, itemName, unitPrice, amount);
+
 
 public Item(String itemID, String itemName , double unitPrice, int amount) {
     this.itemID = itemID;
@@ -24,6 +28,11 @@ public Item(String itemID, String itemName , double unitPrice, int amount) {
         this.itemName = itemName;
         this.unitPrice = unitPrice;
     }
+
+    public Item(){
+        //Empty Constructor to get access to the class.
+    }
+
 
 
     String getItemID(){

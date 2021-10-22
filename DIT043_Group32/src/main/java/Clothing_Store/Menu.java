@@ -4,14 +4,20 @@ package Clothing_Store;
 import ItemReviews.ReviewCtrl;
 import Transactions.TransactionCtrl;
 import facade.Facade;
+import itemStore.Item;
 import itemStore.ItemCtrl;
 
 
 public class Menu {
 
 Facade facade = new Facade();
+ItemCtrl ItemCtrlAccess = new ItemCtrl();
+ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
+TransactionCtrl transactionCtrlAccess = new TransactionCtrl();
 
-	int input = -1;
+
+   int input = -1;
+
 	public static void main(String[] args) {
 
 		Menu menu  = new Menu();
@@ -85,22 +91,26 @@ Facade facade = new Facade();
 					facade.createItem(itemID, itemName, unitPrice);
 					break;
 				case 2:
-					String removeId = UserInput.readLine("type the item ID you want to remove: ");
+					itemID = UserInput.readLine("type the item ID you want to remove: ");
 					facade.removeItem(itemID);
 					break;
 				case 3:
 					facade.printAllItems();
 					break;
 				case 4:
+					itemID = UserInput.readLine("");
 					facade.buyItem(itemID, amount);
 					break;
 				case 5:
+					itemID = UserInput.readLine("");
 					facade.updateItemName(itemID, newName);
 					break;
 				case 6:
+					itemID = UserInput.readLine("");
 					facade.updateItemPrice(itemID, newPrice);
 					break;
 				case 7:
+					itemID = UserInput.readLine("");
 					facade.printItem(itemID);
 					break;
 				default:
@@ -212,12 +222,15 @@ Facade facade = new Facade();
 					facade.printAllTransactions();
 					break;
 				case 5:
+					String itemID = UserInput.readLine("");
 					facade.getProfit(itemID);
 					break;
 				case 6:
+					itemID = UserInput.readLine("");
 					facade.getUnitsSolds(itemID);
 					break;
 				case 7:
+					itemID = UserInput.readLine("");
 					facade.printItemTransactions(itemID);
 					break;
 				case 8:
