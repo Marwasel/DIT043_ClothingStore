@@ -2,19 +2,28 @@ package Clothing_Store;
 
 
 import ItemReviews.ReviewCtrl;
+import Transactions.TransactionCtrl;
+import facade.Facade;
 import itemStore.ItemCtrl;
 
 
 public class Menu {
 
+Facade facade = new Facade();
 
+	int input = -1;
 	public static void main(String[] args) {
-		entryMenu();
+
+		Menu menu  = new Menu();
+		System.out.print(menu.input);
+		menu.entryMenu();
+
+
 	}
 
 
-	public static void entryMenu() {
-		int input = -1;
+	public void entryMenu() {
+
 
 		do {
 
@@ -48,7 +57,7 @@ public class Menu {
 	}
 
 
-	static void openItemOptions() {
+	 void openItemOptions() {
 		int input;
 
 		do {
@@ -73,26 +82,26 @@ public class Menu {
 					String itemID = UserInput.readLine("Type the item's ID: ");
 					String itemName = UserInput.readLine("Type the item's name: ");
 					double unitPrice = UserInput.readDouble("Type the item's price per unit: ");
-					ItemCtrl.createItem(itemID, itemName, unitPrice);
+					facade.createItem(itemID, itemName, unitPrice);
 					break;
 				case 2:
 					String removeId = UserInput.readLine("type the item ID you want to remove: ");
-					ItemCtrl.removeItem(itemID);
+					facade.removeItem(itemID);
 					break;
 				case 3:
-					ItemCtrl.printAllItems();
+					facade.printAllItems();
 					break;
 				case 4:
-					ItemCtrl.buyItem(itemID, amount);
+					facade.buyItem(itemID, amount);
 					break;
 				case 5:
-					ItemCtrl.updateItemName(itemID, newName);
+					facade.updateItemName(itemID, newName);
 					break;
 				case 6:
-					ItemCtrl.updateItemPrice(itemID, newPrice);
+					facade.updateItemPrice(itemID, newPrice);
 					break;
 				case 7:
-					ItemCtrl.printItem(itemID);
+					facade.printItem(itemID);
 					break;
 				default:
 					System.out.println("Invalid input. Try again!");
@@ -101,7 +110,7 @@ public class Menu {
 		} while (input < 0 || input > 7);
 	}
 
-	static void openReviewOptions() {
+	 void openReviewOptions() {
 		int input;
 		do {
 			System.out.println("reviews options menu:\n" +
@@ -127,35 +136,39 @@ public class Menu {
 					String itemID = UserInput.readLine("Enter the item's id: ");
 					String reviewComment = UserInput.readLine("Add a comment:");
 					int reviewGrade = UserInput.readInt("Grade values must be between 1 and 5.");
-
-					ReviewCtrl.reviewItem(itemID, reviewComment, reviewGrade);
+					facade.reviewItem(itemID, reviewComment, reviewGrade);
 					break;
 				case 2:
-					ReviewCtrl.getPrintedItemReview(itemID, reviewNumber);
+					itemID = UserInput.readLine("Enter the item ID:");
+					int reviewNumber = UserInput.readInt("Enter the desired review index: ");
+					facade.getPrintedItemReview(itemID, reviewNumber);
 					break;
 				case 3:
-					ReviewCtrl.getPrintedReviews(itemID);
+					itemID = UserInput.readLine("Enter the item ID:");
+					facade.getPrintedReviews(itemID);
 					break;
 				case 4:
-					ReviewCtrl.getItemMeanGrade(itemID);
+					itemID = UserInput.readLine("Enter the item ID: ");
+					facade.getItemMeanGrade(itemID);
 					break;
 				case 5:
-					ReviewCtrl.getItemCommentsPrinted(itemID);
+					itemID = UserInput.readLine("Enter the item ID:");
+					facade.getItemCommentsPrinted(itemID);
 					break;
 				case 6:
-					ReviewCtrl.printAllReviews();
+					facade.printAllReviews();
 					break;
 				case 7:
-					ReviewCtrl.printMostReviewedItems();
+					facade.printMostReviewedItems();
 					break;
 				case 8:
-					ReviewCtrl.printLeastReviewedItems();
+					facade.printLeastReviewedItems();
 					break;
 				case 9:
-					ReviewCtrl.printBestReviewedItems();
+					facade.printBestReviewedItems();
 					break;
 				case 10:
-					ReviewCtrl.getWorseReviewedItems();
+					facade.getWorseReviewedItems();
 					break;
 				default:
 					System.out.println("Invalid input. Try again!");
@@ -164,7 +177,7 @@ public class Menu {
 		} while (input < 0 || input > 10);
 	}
 
-	static void openTransactionOptions() {
+	 void openTransactionOptions() {
 		int input;
 		do {
 			System.out.println("Transaction history options menu:\n" +
@@ -187,28 +200,28 @@ public class Menu {
 					break;
 
 				case 1:
-					TransactionCtrl.getTotalProfit();
+					facade.getTotalProfit();
 					break;
 				case 2:
-					TransactionCtrl.getTotalUnitsSold();
+					facade.getTotalUnitsSold();
 					break;
 				case 3:
-					TransactionCtrl.getTotalTransactions();
+					facade.getTotalTransactions();
 					break;
 				case 4:
-					TransactionCtrl.printAllTransactions();
+					facade.printAllTransactions();
 					break;
 				case 5:
-					TransactionCtrl.getProfit(itemID);
+					facade.getProfit(itemID);
 					break;
 				case 6:
-					TransactionCtrl.getUnitsSolds(itemID);
+					facade.getUnitsSolds(itemID);
 					break;
 				case 7:
-					TransactionCtrl.printItemTransactions(itemID);
+					facade.printItemTransactions(itemID);
 					break;
 				case 8:
-					TransactionCtrl.printMostProfitableItems();
+					facade.printMostProfitableItems();
 					break;
 				default:
 					System.out.println("Invalid input. Try again!");
@@ -216,6 +229,8 @@ public class Menu {
 			}
 		} while (input < 0 || input > 8);
 	}
+
+
 }
 
 

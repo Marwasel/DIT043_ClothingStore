@@ -4,31 +4,45 @@ package itemStore;
 
 public class Item {
 
-private String itemID;
-private String name;
-private double unitPrice ;
+String itemID;
+ String itemName;
+ double unitPrice ;
+ int amount;
 
 
-public Item(String itemID, String name , double unitPrice) {
+Item item = new Item(itemID, itemName, unitPrice);
+Item items = new Item(itemID, itemName, unitPrice, amount);
+
+public Item(String itemID, String itemName , double unitPrice, int amount) {
     this.itemID = itemID;
-    this.name = name;
+    this.itemName = itemName;
     this.unitPrice = unitPrice;
+    this.amount = amount;
 }
+    public Item(String itemID, String itemName, double unitPrice) {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.unitPrice = unitPrice;
+    }
 
 
-String getItemID(){
-    return itemID;
+    String getItemID(){
+return itemID;
 }
+
 void setItemID(){
-    this.itemID = itemID;
+  this.itemID = itemID;
 }
 
-String getName() {
-    return name;
+
+String getItemName() {
+  return itemName;
 }
-void setName(){
-    this.name = name;
+
+void setItemName(){
+this.itemName = itemName;
 }
+
 double getUnitPrice() {
     return unitPrice;
 }
@@ -40,7 +54,7 @@ void setUnitPrice() {
 @Override
     public String toString() {
 
-    return itemID + ","	 + name + "," + unitPrice + "SEK";
+    return itemID + ","	 + itemName + "," + unitPrice + "SEK";
 	}
 
 
