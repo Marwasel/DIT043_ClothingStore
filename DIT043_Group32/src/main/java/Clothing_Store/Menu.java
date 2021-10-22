@@ -1,19 +1,14 @@
 package Clothing_Store;
 
 
-import ItemReviews.ReviewCtrl;
-import Transactions.TransactionCtrl;
 import facade.Facade;
-import itemStore.Item;
-import itemStore.ItemCtrl;
+
 
 
 public class Menu {
 
 Facade facade = new Facade();
-ItemCtrl ItemCtrlAccess = new ItemCtrl();
-ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
-TransactionCtrl transactionCtrlAccess = new TransactionCtrl();
+
 
 
    int input = -1;
