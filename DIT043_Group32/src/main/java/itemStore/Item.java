@@ -13,20 +13,14 @@ public class Item {
  public int amount;
 
 
-Item item = new Item(itemID, itemName, unitPrice);
-Item items = new Item(itemID, itemName, unitPrice, amount);
+//Item item = new Item(itemID, itemName, unitPrice);
 
 
-public Item(String itemID, String itemName , double unitPrice, int amount) {
-    this.itemID = itemID;
-    this.itemName = itemName;
-    this.unitPrice = unitPrice;
-    this.amount = amount;
-}
     public Item(String itemID, String itemName, double unitPrice) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.unitPrice = unitPrice;
+        this.amount = 0;
     }
 
     public Item(){
@@ -35,35 +29,38 @@ public Item(String itemID, String itemName , double unitPrice, int amount) {
 
 
 
-    String getItemID(){
-return itemID;
+ public String getItemID(){
+  return itemID;
 }
 
-void setItemID(){
-  this.itemID = itemID;
+public void setItemID(){
+
+ this.itemID = itemID;
 }
 
 
-String getItemName() {
-  return itemName;
+public String getItemName() {
+   return itemName;
 }
 
-void setItemName(){
-this.itemName = itemName;
+public void setItemName() {
+
+    this.itemName = itemName;
 }
 
-double getUnitPrice() {
-    return unitPrice;
+public double getUnitPrice() {
+   return unitPrice;
 }
-void setUnitPrice() {
-    this.unitPrice = unitPrice;
+
+ public void setUnitPrice() {
+   this.unitPrice = unitPrice;
 }
 
 
 @Override
     public String toString() {
 
-    return itemID + ","	 + itemName + "," + unitPrice + "SEK";
+    return itemID + ":"	 + itemName + "." + unitPrice + "SEK";
 	}
 
 

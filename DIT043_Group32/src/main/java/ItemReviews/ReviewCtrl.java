@@ -7,7 +7,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import itemStore.Item;
 
 public class ReviewCtrl {
 
@@ -15,22 +14,26 @@ public class ReviewCtrl {
     private ArrayList<Reviews> reviewList = new ArrayList<Reviews>();
 
     Reviews reviewAccess = new Reviews();
-ItemCtrl ItemCtrlAccess = new ItemCtrl();
-Item itemAccess = new Item();
+    ItemCtrl ItemCtrlAccess = new ItemCtrl();
+    Item itemAccess = new Item();
 
-
+    //Method is not working...
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-
+        String reviewAdd = "";
         ArrayList reviewList = new ArrayList();
 
-        if (! ItemCtrlAccess.itemList.contains(itemID) || reviewComment.isEmpty() || reviewGrade <= 0) {
-            System.out.println("Invalid data for item.");
-        } else {
+        if (ItemCtrlAccess.itemList.contains(itemID) || !reviewComment.isEmpty() || reviewGrade <= 5 || reviewGrade >= 0) {
             Reviews review = new Reviews(itemID, reviewComment, reviewGrade);
             reviewList.add(review);
-            System.out.println("Your item review was registered successfully.");
+            reviewAdd = "Your item review was registered successfully.";
+            System.out.println(itemID + ":" + itemAccess.getItemName() + "." + itemAccess.getUnitPrice() + ".");
+
+
+        } else if (!ItemCtrlAccess.itemList.contains(itemID) || reviewComment.isEmpty() || reviewGrade < 0 || reviewGrade > 5) {
+            reviewAdd = "Invalid data for item.";
+
         }
-        return "Your item review was registered successfully";
+        return reviewAdd;
 
     }
 
@@ -51,7 +54,7 @@ Item itemAccess = new Item();
         int index = 0;
         String review = "";
         if (reviewList.contains(itemID) && validIndex(reviewList, index)) {
-            review = "Grade:" + reviewAccess + "." + reviewAccess;     //Not working
+            review = "Grade:" + reviewAccess.getReviewGrade() + "." + reviewAccess.getReviewComment();
 
         } else if (!reviewList.contains(itemID)) {
             review = "Item<ID> " + itemID + " was not registered yet.”";
@@ -66,26 +69,30 @@ Item itemAccess = new Item();
     }
 
     public String getPrintedReviews(String itemID) {
-String printedReview = "";
+
+        String printedReview = "";
+
         for (Reviews review : reviewList) {
-           printedReview = review.itemID.toString() + "\n" +
+            printedReview = reviewAccess.toString() + "\n" +
                     "Grade:" + reviewAccess + "." + reviewAccess;
         }
         if (!reviewList.contains(itemID)) {
-           printedReview = "Item id: " + itemID + " was not registered yet.";
+            printedReview = "Item id: " + itemID + " was not registered yet.";
         }
         return printedReview;
 
     }
 
+
     public double getItemMeanGrade(String itemID) {
+
         double sum = 0.0;
         double meanGrade = 0.0;
 
         if (!reviewList.contains(itemID)) {
             System.out.println("Item<ID> " + itemID + " was not registered yet.");
 
-        } else if (reviewList.contains(itemID) || reviewAccess.reviewNumber == 0) {
+        } else if (reviewList.contains(itemID) || reviewAccess.getReviewNumber() == 0) {
             System.out.println(" Item " + itemID + "Has not been reviewed yet.");
 
         } else {
@@ -98,8 +105,11 @@ String printedReview = "";
         return meanGrade;
     }
 
+
     public String getItemCommentsPrinted(String itemID) {
+
         String comments = "";
+
         if (reviewAccess.getReviewComment().isEmpty()) {
             comments = null;
         } else if (!reviewList.contains(itemID)) {
@@ -112,11 +122,13 @@ String printedReview = "";
         return comments;
     }
 
+
     public String printAllReviews() {                            //Wrong method. This might print only one review??
 
         ArrayList<Reviews> reviewList = new ArrayList<Reviews>();
 
         String printReviews = "";
+
         if (reviewAccess.reviewNumber == 0) {
             printReviews = "No items were reviewed yet";
         } else if (!reviewList.contains(reviewAccess.getItemID())) {
@@ -130,86 +142,124 @@ String printedReview = "";
                             + ". " + itemAccess.unitPrice + "." + "\n" + review;
                 }
             }
-                return printReviews;
+        return printReviews;
 
     }
 
-    public int getNumberOfReviews(String itemID) {
 
+    public int getNumberOfReviews(String itemID) {
+        for (Reviews reviews : reviewList) ;
         int reviewCount = reviewList.size();
-       // for (Reviews reviews : reviewList)
-       //     reviewCount = reviewList.get(Reviews.review);
+
 
         return reviewCount;
     }
 
+    //Not needed?
+    public void sort() {
+
+        List<String> reviewList = new ArrayList();
+        Collections.sort(reviewList);
+        for (String sortedList : reviewList) {
+            System.out.println(sortedList);
+        }
+    }
 
 
-
-    //Methods to be fixed...
-
-
-
-
-
+    // Is it the right method to find the most reviewed items?
     public List<String> getMostReviewedItems() {
 
 
-           ArrayList<String> mostFrequentList = new ArrayList<String>(reviewAccess.getReviewNumber());
-            for (String num : mostFrequentList) {
-                Reviews max = num + ": " + Collections.max();      // to be fixed
-           }
-            return Collections.max();
+        ArrayList<String> mostFrequentList = new ArrayList<String>(reviewAccess.getReviewNumber());
+
+        if (!reviewList.contains(reviewAccess.getItemID())) {
+            System.out.println("No items registered yet.");
+
+        } else if (reviewList.contains(reviewAccess.getItemID()) || reviewAccess.getReviewNumber() == 0) {
+            System.out.println("No items were reviewed yet.");
+
+        } else
+            System.out.println("Most reviews: " + Collections.max(mostFrequentList));
+        {
+
         }
 
-
-        public String printMostReviewedItems () {
-
-             return "Most reviewed:" + Collections.max() + "review(s) each" + "\n" + Item.toString();;
-            //  }
+        return mostFrequentList;
+    }
 
 
-            public void sort () {
+    //What is the difference here from the getMostReviewedItems method? And is it valid to do it this way??
+    public String printMostReviewedItems() {
 
-                List<String> reviewList = new ArrayList(this.reviewList.get());
-                Collections.sort(reviewList);
-                for (String sortedList : reviewList) {
-                    System.out.println(sortedList);
-                }
-            }
+        return "Most reviewed:" + Collections.max(getMostReviewedItems()) + "review(s) each" + "\n"
+                + itemAccess.toString();
+    }
 
 
-            public List<String> getLeastReviewedItems() {
+    public List<String> getLeastReviewedItems() {
 
-                   String min = "";
-                 List<String> leastFrequentList = new List<String>();
-                  for (String num : leastFrequentList) {
-                      min = num + ": " + Collections.min(leastFrequentList);
-            }
-            return null;
+        ArrayList<String> leastFrequentList = new ArrayList<String>(reviewAccess.getReviewNumber());
+
+        if (!reviewList.contains(reviewAccess.getItemID())) {
+            System.out.println("No items registered yet.");
+
+        } else if (reviewList.contains(reviewAccess.getItemID()) || reviewAccess.getReviewNumber() == 0) {
+            System.out.println("No items were reviewed yet.");
+
+        } else
+            System.out.println("Least Reviews: " + Collections.min(leastFrequentList));
+
+        return leastFrequentList;
+    }
+
+
+    public String printLeastReviewedItems() {
+
+        return "Least reviewed:" + Collections.min(getLeastReviewedItems()) + "review(s) each" + "\n"
+                + itemAccess.toString();
+
+    }
+
+//Wrong method
+    public List<String> getBestReviewedItems() {
+
+        ArrayList<String> bestReviewList = new ArrayList<String>();
+        int sum = 0;
+
+        if (!reviewList.contains(reviewAccess.getItemID())) {
+            System.out.println("No items registered yet.");
+
+        } else if (reviewList.contains(reviewAccess.itemID) || reviewAccess.getReviewNumber() == 0) {
+            System.out.println("No Items were reviewed yet.");
+
+        } else {
+            System.out.println("Items with best mean reviews: " + Collections.max(bestReviewList));
+            double average = sum / bestReviewList.size();
         }
 
-                public String printLeastReviewedItems () {
+        return null;
+    }
 
-                    return "Least reviewed:" + Collections.min(leastFrequentList) + "review(s) each" + "\n" + Item.toString();
-                }
+//Wrong method
+    public List<String> getWorseReviewedItems() {
 
+        ArrayList<String> worstReviewList = new ArrayList<String>(reviewAccess.getReviewGrade());
+        int sum = 0;
 
-                public List<String> getBestReviewedItems () {
-                      ArrayList<String> bestReviewList = new ArrayList<String>();
-                      for(Reviews reviews : this.reviewList) {
-                          if()
-                      }
-                       return null;
-                }
+        if (!reviewList.contains(reviewAccess.getItemID())) {
+            System.out.println("No items registered yet.");
 
-                public List<String> getWorseReviewedItems () {
-                    //   List<String> worstReviewList = new List<String>(Reviews.reviewGrade);
+        } else if (reviewList.contains(reviewAccess.itemID) || reviewAccess.getReviewNumber() == 0) {
+            System.out.println("No Items were reviewed yet.");
 
-                    return null;
-                }
-            }
+        } else {
+            System.out.println("Items with best mean reviews: " + Collections.min(worstReviewList));
+            double average = sum / worstReviewList.size();
         }
+        return null;
+    }
+}
+
 
 
 

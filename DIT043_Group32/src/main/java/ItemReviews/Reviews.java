@@ -12,7 +12,7 @@ int reviewNumber;
 
 Item itemAccess = new Item();
 
-Reviews review = new Reviews(itemID, reviewGrade, reviewComment, reviewNumber);
+//Reviews review = new Reviews(itemID, reviewGrade, reviewComment, reviewNumber);
 
 
 

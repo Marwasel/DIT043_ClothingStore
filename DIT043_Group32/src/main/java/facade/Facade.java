@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Facade {
 
-    private Facade facade = new Facade();
+
 
     public Facade() {
 
@@ -92,7 +92,7 @@ ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
 
     public String printMostReviewedItems() {
 
-        return reviewCtrlAccess.printMostReviewedItems();
+        return reviewCtrlAccess.printMostReviewedItems() ;
     }
 
     public List<String> getMostReviewedItems() {
@@ -105,7 +105,7 @@ ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
     }
 
     public String printLeastReviewedItems() {
-        return reviewCtrlAccess.printLeastReviewedItems();
+      return reviewCtrlAccess.printLeastReviewedItems();
     }
     
     
@@ -146,11 +146,11 @@ ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
     }
 
     public List<String> getWorseReviewedItems() {
-        return null;
+        return reviewCtrlAccess.getWorseReviewedItems();
     }
 
     public List<String> getBestReviewedItems() {
-        return null;
+        return reviewCtrlAccess.getBestReviewedItems();
     }
 
     public String printAllReviews() {

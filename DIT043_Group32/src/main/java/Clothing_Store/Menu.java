@@ -92,18 +92,18 @@ Facade facade = new Facade();
 				case 3:
 					facade.printAllItems();
 					break;
-				case 4:
-					itemID = UserInput.readLine("");
-					facade.buyItem(itemID, amount);
-					break;
-				case 5:
-					itemID = UserInput.readLine("");
-					facade.updateItemName(itemID, newName);
-					break;
-				case 6:
-					itemID = UserInput.readLine("");
-					facade.updateItemPrice(itemID, newPrice);
-					break;
+				//case 4:
+				//	itemID = UserInput.readLine("");
+				//	facade.buyItem(itemID, amount);
+				//	break;
+			//	case 5:
+				//	itemID = UserInput.readLine("");
+				//	facade.updateItemName(itemID, newName);
+				//	break;
+				//case 6:
+					//itemID = UserInput.readLine("");
+				//	facade.updateItemPrice(itemID, newPrice);
+				//	break;
 				case 7:
 					itemID = UserInput.readLine("");
 					facade.printItem(itemID);
@@ -187,8 +187,8 @@ Facade facade = new Facade();
 		do {
 			System.out.println("Transaction history options menu:\n" +
 					"0. Return to Main Menu. \n" +
-					"1. Print total profit from all item purshases \n" +
-					"2. Print total units sold from all item purshases \n" +
+					"1. Print total profit from all item purchases \n" +
+					"2. Print total units sold from all item purchases \n" +
 					"3. Print the total number of item transactions made \n" +
 					"4. Print all transactions made \n" +
 					"5. Print the total profit of a specific item. \n" +
