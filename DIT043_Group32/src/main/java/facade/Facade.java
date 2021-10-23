@@ -1,9 +1,11 @@
 package facade;
 
+import Clothing_Store.UserInput;
 import ItemReviews.ReviewCtrl;
-;
+
 import itemStore.ItemCtrl;
 
+import Transaction_History.TransactionsHistory;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class Facade {
 ItemCtrl itemCtrlAccess = new ItemCtrl();
 ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
 
+TransactionsHistory history = new TransactionsHistory();
 
 
     public String createItem(String itemID, String itemName, double unitPrice){
@@ -37,9 +40,7 @@ ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
         return false;
     }
 
-    public double buyItem(String itemID, int amount) {
-        return -1.0;
-    }
+    public double buyItem(String itemID, int amount) {return -1.0;}
     
     
 
@@ -114,19 +115,21 @@ ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
     }
 
     public String printItemTransactions(String itemID) {
+        String output = history.PrintAllItemTransactions(itemID, itemCtrlAccess);
+        System.out.print(output);
         return "";
     }
 
     public int getTotalUnitsSold() {
-        return -1;
+        return history.UnitsSum();
     }
 
     public int getTotalTransactions() {
-        return -1;
+        return history.TotalTransactions();
     }
 
     public double getProfit(String itemID) {
-        return -1.0;
+        return history.ProfitSum(itemID);
     }
 
     public int getUnitsSolds(String itemID) {
