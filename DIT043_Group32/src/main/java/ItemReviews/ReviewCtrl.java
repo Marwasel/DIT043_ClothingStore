@@ -13,7 +13,7 @@ public class ReviewCtrl {
         return reviewMap.size();
     }
 
-    public int maxReviewsByItem = 0;
+    public double maxReviewsByItem = 0;
     public int leastReviewsByItem = 0;
 
 
@@ -84,8 +84,8 @@ public class ReviewCtrl {
             sum += review.getReviewGrade();
         }
 
-        double meanValue = sum / reviewMap.get(itemID).size();
-        new DecimalFormat("#.#").format(meanValue);
+        meanGrade = sum / reviewMap.get(itemID).size();
+        new DecimalFormat("#.#").format(meanGrade);
         return meanGrade;
     }
 
@@ -122,20 +122,19 @@ public class ReviewCtrl {
         int maxReviews = 0;
         int reviewCount = 0;
 
-        // Iterate over the reviews map
+        // Iterate over map
         for (String itemID : reviewMap.keySet()) {
             // If there are reviews before
             if (reviewdItemCount.containsKey(itemID)) {
                 int count = reviewdItemCount.get(itemID);
                 count++;
             }
-            // If this is the first time
+
             else {
                 reviewdItemCount.put(itemID, 1);
             }
         }
 
-        // Get top review
         for (String itemID : reviewdItemCount.keySet()) {
             reviewCount = reviewdItemCount.get(itemID);
             if (maxReviews < reviewCount) {
@@ -183,7 +182,7 @@ public class ReviewCtrl {
             }
         }
 
-        
+
         for (String itemID : reviewdItemCount.keySet()) {
             reviewCount = reviewdItemCount.get(itemID);
             if (leastReviews == reviewCount) {
@@ -206,51 +205,95 @@ public class ReviewCtrl {
         return printedReview;
     }
 
-  //  public List<String> getBestReviewedItems() {
+   public List<String> getBestReviewedItems() {
 
-   //    ArrayList<String> bestReviewList = new ArrayList<String>();
-   //     int sum = 0;
+       HashMap<String, Integer> bestReviewedItemCount = new HashMap<String, Integer>();
+       ArrayList<String> maxItemIDs = new ArrayList<String>();
 
-  //     if (!reviewList.contains(reviewAccess.getItemID())) {
-  //          System.out.println("No items registered yet.");
+       int reviewCount = 0;
+       double bestMeanGrade = 0.0;
+       for (Review review : reviewMap.get(maxItemIDs)) {
+           reviewCount += review.getReviewGrade();
+       }
+       bestMeanGrade = reviewCount / reviewMap.size();
 
-  //     } else if (reviewList.contains(reviewAccess.itemID) || reviewAccess.getReviewNumber() == 0) {
-  //          System.out.println("No Items were reviewed yet.");
-//
-//        } else {
-//            System.out.println("Items with best mean reviews: " + Collections.max(bestReviewList));
-//            double average = sum / bestReviewList.size();
-//        }
-//
-//        return null;
-//    }
-//
-////Wrong method
-//    public List<String> getWorseReviewedItems() {
-//
-//        ArrayList<String> worstReviewList = new ArrayList<String>(reviewAccess.getReviewGrade());
-//        int sum = 0;
-//
-//        if (!reviewList.contains(reviewAccess.getItemID())) {
-//            System.out.println("No items registered yet.");
-//
-//        } else if (reviewList.contains(reviewAccess.itemID) || reviewAccess.getReviewNumber() == 0) {
-//            System.out.println("No Items were reviewed yet.");
-//
-//        } else {
-//            System.out.println("Items with best mean reviews: " + Collections.min(worstReviewList));
-//            double average = sum / worstReviewList.size();
-//        }
-//        return null;
-//    }
+       // Iterate
+       for (String itemID : reviewMap.keySet()) {
+           // If there are reviews before
+           if (bestReviewedItemCount.containsKey(itemID)) {
+               int count = bestReviewedItemCount.get(itemID);
+               count++;
+           }
+
+           else {
+               bestReviewedItemCount.put(itemID, 1);
+           }
+       }
+
+       for (String itemID : bestReviewedItemCount.keySet()) {
+           reviewCount = bestReviewedItemCount.get(itemID);
+           if (bestMeanGrade < reviewCount) {
+               bestMeanGrade = reviewCount;
+           }
+       }
+       
+       // Get top Items
+       for (String itemID : bestReviewedItemCount.keySet()) {
+           reviewCount = bestReviewedItemCount.get(itemID);
+           if (bestMeanGrade == reviewCount) {
+               maxItemIDs.add(itemID);
+           }
+       }
+
+       this.maxReviewsByItem = bestMeanGrade;
+       return maxItemIDs;
+   }
+
+    public List<String> getWorseReviewedItems() {
+
+        HashMap<String, Integer> worstReviewedItemCount = new HashMap<String, Integer>();
+        ArrayList<String> worseItemIDs = new ArrayList<String>();
+
+        int reviewCount = 0;
+        double worstMeanGrade = 0.0;
+        for (Review review : reviewMap.get(worseItemIDs)) {
+            reviewCount += review.getReviewGrade();
+        }
+        worstMeanGrade = reviewCount / reviewMap.size();
+
+        // Iterate over map
+        for (String itemID : reviewMap.keySet()) {
+            // If there are reviews before
+            if (worstReviewedItemCount.containsKey(itemID)) {
+                int count = worstReviewedItemCount.get(itemID);
+                count++;
+            }
+
+            else {
+                worstReviewedItemCount.put(itemID, 1);
+            }
+        }
+
+        for (String itemID : worstReviewedItemCount.keySet()) {
+            reviewCount = worstReviewedItemCount.get(itemID);
+            if (worstMeanGrade > reviewCount) {
+                worstMeanGrade = reviewCount;
+            }
+        }
+
+
+        //get items with worst mean. Correct method?
+        for (String itemID : worstReviewedItemCount.keySet()) {
+            reviewCount = worstReviewedItemCount.get(itemID);
+            if (worstMeanGrade == reviewCount) {
+                worseItemIDs.add(itemID);
+            }
+        }
+
+        this.maxReviewsByItem = worstMeanGrade;
+        return worseItemIDs;
     }
-
-
-
-
-
-
-
+    }
 
 
 
