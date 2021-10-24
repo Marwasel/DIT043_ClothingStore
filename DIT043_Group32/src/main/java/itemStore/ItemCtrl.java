@@ -62,4 +62,55 @@ public class ItemCtrl {
 		return "Item " + itemID + " was updated successfully.";
 	}
 
+	public String removeItem(String itemID) {
+		Item itemAccess = findItem(itemID);
+		if (itemAccess != null && itemList.remove(itemAccess)) {
+			return "Item " + itemID + " was successfully removed.";
+		}
+		return "Item " + itemID + " could not be removed.";
+	}
+
+
+	public double buyItem(String itemID, int count) {
+		Item itemAccess = findItem(itemID);
+		double amount = -1;
+
+
+		if (itemAccess != null) {
+			if (count < 4) {
+				amount = count * itemAccess.unitPrice;
+			} else {
+				amount = 4 * itemAccess.unitPrice;
+				amount += (count - 4) * itemAccess.unitPrice * 0.7;
+			}
+		}
+
+		return Double.valueOf(String.format("%.2f", amount));
+	}
+
+
+	public String printAllItems() {
+		if (itemList.size() == 0) {
+			return "No items registered yet.";
+		}
+		String allItems = "All registered items:\n";
+		for (Item item : itemList) {
+			allItems += item.toString() + "\n";
+		}
+		return allItems;
+	}
+
+	public String printItem(String itemID) {
+		Item itemAccess = findItem(itemID);
+		if (Objects.isNull(itemAccess)) {
+			return "Item " + itemID + " was not registered yet.";
+		}
+		return itemAccess.toString();
+	}
+
+	public boolean containsItem(String itemID) {
+		return (findItem(itemID) != null);
+	}
 }
+
+

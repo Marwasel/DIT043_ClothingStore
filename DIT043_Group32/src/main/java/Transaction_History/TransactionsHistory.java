@@ -1,9 +1,10 @@
 package Transaction_History;
 
-import java.util.List;
 import Clothing_Store.UserInput;
 import itemStore.Item;
 import itemStore.ItemCtrl;
+
+import java.util.List;
 
 public class TransactionsHistory {
     List<Transaction> historyList;
@@ -92,5 +93,4 @@ public class TransactionsHistory {
                     "No transactions have been registered for item " + itemID + " yet.\n";
         }
         return  output;
-    }
-}
+    }}

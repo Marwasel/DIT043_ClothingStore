@@ -5,6 +5,7 @@ public class Menu {
 
 	Facade facade = new Facade();
 EmployeeMenu getAccessEmpMenu = new EmployeeMenu();
+
 	int input = -1;
 
 	public static void main(String[] args) {

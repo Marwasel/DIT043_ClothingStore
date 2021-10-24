@@ -1,36 +1,33 @@
-package Employee;
+package Clothing_Store;
 
-import Clothing_Store.Menu;
-import Clothing_Store.UserInput;
-
-import facade.Facade;
+import EmployeeStore.Emp;
 
 
-public class EmployeeeInput2 {
+import java.util.ArrayList;
 
-    Facade facade = new Facade();
 
-    // Temporarily. It should be only in Facade
-   // private static ArrayList<EmpReg> EmpRegList = new ArrayList<>();
-   // private static ArrayList<EmpMan> EmpManList = new ArrayList<>();
-   // private static ArrayList<EmpDir> EmpDirList = new ArrayList<>();
-   // private static ArrayList<EmpInt> EmpIntList = new ArrayList<>();
+public class EmployeeMenu {
+
+
+
+    private static ArrayList<Emp> EmpRegList = new ArrayList<Emp>();
+    private static ArrayList<Emp> EmpManList = new ArrayList<Emp>();
+    private static ArrayList<Emp> EmpDirList = new ArrayList<Emp>();
+    private static ArrayList<Emp> EmpIntList = new ArrayList<Emp>();
 
 
     int input = -1;
     public static void main(String[] args) throws Exception {
 
-        EmployeeeInput2 menu  = new EmployeeeInput2();
+        EmployeeMenu  menu  = new EmployeeMenu ();
         System.out.print(menu.input);
-        menu.EmpMenu();
+        menu.openEmployeeOptions();
 
 
     }
 
 
-
-
-    public void EmpMenu() throws Exception {
+    public void openEmployeeOptions() {
 
 
         do {
@@ -68,29 +65,48 @@ public class EmployeeeInput2 {
                 case 5:
                     String removeId = UserInput.readLine("Type the Employee's ID you want to remove: ");
 
-                    String messageRemove = facade.removeEmployee(removeId);
-                    System.out.println(messageRemove);
-
+                    // Find the item in the database
+                    if(EmpRegList.contains(removeId)) {
+                        EmpRegList.remove(removeId);
+                        System.out.println("Employee " + removeId + " was successfully removed.");
+                    }else if(EmpDirList.contains(removeId)){
+                        EmpRegList.remove(removeId);
+                        System.out.println("Employee "+removeId+" was successfully removed.");
+                    }else if(EmpIntList.contains(removeId)){
+                        EmpRegList.remove(removeId);
+                        System.out.println("Employee "+removeId+" was successfully removed.");
+                    }else if(EmpManList.contains(removeId)){
+                        EmpRegList.remove(removeId);
+                        System.out.println("Employee "+removeId+" was successfully removed.");
+                    }else{
+                        System.out.println("Employee "+removeId+" was not found in the database.");
+                    }
                     break;
                 case 6:
                     String PrintId = UserInput.readLine("Type the Employee's ID you want to print: ");
-                    String messagePrint = facade.printEmployee(PrintId);
-                    System.out.println(messagePrint);
-
+                    if(EmpRegList.contains(PrintId)) {
+                        System.out.println( PrintId );
+                    }else if(EmpDirList.contains(PrintId)){
+                        System.out.println( PrintId );
+                    }else if(EmpIntList.contains(PrintId)){
+                        System.out.println( PrintId );
+                    }else if(EmpManList.contains(PrintId)){
+                        System.out.println( PrintId );
+                    }else{
+                        System.out.println("Employee "+PrintId+" was not found in the database.");
+                    }
                     break;
                 case 7:
                     System.out.println("All registered employees:");
-                    String messagePrintAll = facade.printAllEmployees();
-                    System.out.println(messagePrintAll);
-                    //EmpRegList.forEach(System.out::println);
-                    //EmpManList.forEach(System.out::println);
-                    //EmpDirList.forEach(System.out::println);
-                    //EmpIntList.forEach(System.out::println);
+                    EmpRegList.forEach(System.out::println);
+                    EmpManList.forEach(System.out::println);
+                    EmpDirList.forEach(System.out::println);
+                    EmpIntList.forEach(System.out::println);
 
                     break;
                 case 8:
-                    Double messagePrintTotNet = facade.getTotalNetSalary();
-                    System.out.println(messagePrintTotNet);
+
+                    //facade.getTotalNetSalary();
                     break;
                 case 9:
 
@@ -103,60 +119,158 @@ public class EmployeeeInput2 {
         } while (input > 0 && input < 9);
     }
 
-    void CreateAnEmployee_RegularEmployee()  throws Exception {
+    void CreateAnEmployee_RegularEmployee()  {
+        int input;
         String EmpID = UserInput.readLine("Type the employee's ID: ");
         String EmpName = UserInput.readLine("Type the employee's name: ");
 
         double GrossSalary_unround = UserInput.readDouble("Type the employee's gross salary ");
         double GrossSalary = Math.round(GrossSalary_unround*100.0)/100.0;
+        double NetSalary_unround = GrossSalary-0.1*GrossSalary;
+        double NetSalary = Math.round(NetSalary_unround*100.0)/100.0;
 
-        String message = facade.createEmployee(EmpID, EmpName, GrossSalary);
-        System.out.println(message);
+        if (EmpID.isEmpty() || EmpName.isEmpty() || GrossSalary <= 0 || NetSalary <= 0) {
+            System.out.println("Invalid data for item.");
+        } else {
+            Emp emp = new Emp(EmpID, EmpName, GrossSalary,NetSalary);
+            EmpRegList.add(emp);
+            System.out.println("Employee "+EmpID+" was registered successfully");
+
+        }
 
         //
 
     }
-    void CreateAnEmployee_ManagerEmployee()  throws Exception {
+    void CreateAnEmployee_ManagerEmployee()  {
         String EmpID = UserInput.readLine("Type the employee's ID: ");
         String EmpName = UserInput.readLine("Type the employee's name: ");
         String degree = UserInput.readLine("Type his/her academic degree (BSc,Msc,Phd) :");
         double GrossSalary_unround = UserInput.readDouble("Type the employee's gross salary ");
         double GrossSalary = Math.round(GrossSalary_unround * 100.0) / 100.0;
 
-        String message = facade.createEmployee(EmpID, EmpName, GrossSalary,degree);
-        System.out.println(message);
+        double NetSalary_unround = GrossSalary - 0.1 * GrossSalary;
+        double NetSalary = Math.round(NetSalary_unround * 100.0) / 100.0;
+
+        switch (degree) {
+            case "BSc":
+                GrossSalary = GrossSalary*1.1;
+                NetSalary = NetSalary*1.1;
+                System.out.println("BSc." + EmpName + "'s gross salary is " + GrossSalary + "SEK per month");
+                break;
+            case "MSc":
+
+                GrossSalary = GrossSalary*1.2;
+                NetSalary = NetSalary*1.2;
+                System.out.println("MSc." + EmpName + "'s gross salary is " + GrossSalary + "SEK per month");
+                break;
+
+            case "PhD":
+
+                GrossSalary = GrossSalary*1.35;
+                NetSalary = NetSalary*1.35;
+                System.out.println("PhD." + EmpName + "'s gross salary is " + GrossSalary + "SEK per month");
+                break;
+            //
+
+        }
+
+        if (EmpID.isEmpty() || EmpName.isEmpty() || GrossSalary <= 0 || NetSalary <= 0) {
+            System.out.println("Invalid data for item.");
+        } else {
+            Emp emp = new Emp(EmpID, EmpName, GrossSalary,NetSalary);
+            EmpManList.add(emp);
+            System.out.println("Employee "+EmpID+" was registered successfully");
+
+        }
 
     }
 
-    void CreateAnEmployee_DirectorEmployee() throws Exception {
+    void CreateAnEmployee_DirectorEmployee() {
 
         String EmpID = UserInput.readLine("Type the employee's ID: ");
         String EmpName = UserInput.readLine("Type the employee's name: ");
         String degree = UserInput.readLine("Type his/her academic degree (BSc,Msc,Phd) :");
-        String dep = UserInput.readLine("Type his/her department :");
         double GrossSalary_unround = UserInput.readDouble("Type the employee's gross salary ");
         double GrossSalary = Math.round(GrossSalary_unround*100.0)/100.0;
+        double NetSalary_unround = GrossSalary-0.1*GrossSalary;
+        double NetSalary = Math.round(NetSalary_unround*100.0)/100.0;
 
+        switch (degree) {
+            case "BSc":
+                GrossSalary = GrossSalary*1.1 +5000;
+                System.out.println("BSc." + EmpName + "'s gross salary is " + GrossSalary + "SEK per month");
+                break;
+            case "MSc":
 
-        String message = facade.createEmployee(EmpID, EmpName, GrossSalary,degree,dep);
-        System.out.println(message);
+                GrossSalary = GrossSalary*1.2 +5000;
+                System.out.println("MSc." + EmpName + "'s gross salary is " + GrossSalary + "SEK per month");
+                break;
+
+            case "PhD":
+                GrossSalary = GrossSalary*1.35 +5000;
+                System.out.println("PhD." + EmpName + "'s gross salary is " + GrossSalary + "SEK per month");
+                break;
+            //
+
+        }
+        if (GrossSalary<30000){
+            GrossSalary=GrossSalary - 0.1 * GrossSalary;
+
+        }else if ((GrossSalary>30000)&(GrossSalary<50000)){
+            GrossSalary=GrossSalary - 0.2 * GrossSalary;
+
+        }else if (GrossSalary>50000){
+            GrossSalary=GrossSalary - 0.2 * 30000- 0.4 * (GrossSalary-30000);
+        }
+
+        if (EmpID.isEmpty() || EmpName.isEmpty() || GrossSalary <= 0 || NetSalary <= 0) {
+            System.out.println("Invalid data for item.");
+        } else {
+            Emp emp = new Emp(EmpID, EmpName, GrossSalary,NetSalary);
+            EmpDirList.add(emp);
+            System.out.println("Employee "+EmpID+" was registered successfully");
+
+        }
+
 
         //
 
     }
-    void CreateAnEmployee_InternEmployee() throws Exception {
-        int GPA;
+    void CreateAnEmployee_InternEmployee() {
+        double input;
         String EmpID = UserInput.readLine("Type the employee's ID: ");
         String EmpName = UserInput.readLine("Type the employee's name: ");
-        GPA = UserInput.readInt("Type his/her GPA :");
+        input = UserInput.readDouble("Type his/her GPA :");
         double GrossSalary_unround = UserInput.readDouble("Type the employee's gross salary ");
         double GrossSalary = Math.round(GrossSalary_unround*100.0)/100.0;
+        double NetSalary_unround = GrossSalary-0.1*GrossSalary;
+        double NetSalary = Math.round(NetSalary_unround*100.0)/100.0;
 
-        String message = facade.createEmployee(EmpID, EmpName, GrossSalary,GPA);
-        System.out.println(message);
+
+        if (input<5){
+            GrossSalary=0;
+            NetSalary=0;
+
+        }else if ((input>5)&(input<8)){
+            GrossSalary=GrossSalary;
+            NetSalary=GrossSalary;
+
+        }else if (input>8){
+            GrossSalary=GrossSalary+1000;
+            NetSalary=GrossSalary;
+        }
+
+        if (EmpID.isEmpty() || EmpName.isEmpty() || GrossSalary <= 0 || NetSalary <= 0) {
+            System.out.println("Invalid data for item.");
+        } else {
+            Emp emp = new Emp(EmpID, EmpName, GrossSalary,NetSalary);
+            EmpIntList.add(emp);
+            System.out.println("Employee "+EmpID+" was registered successfully");
+
+        }
 
 
-        //
+
 
     }
 
