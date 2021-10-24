@@ -1,31 +1,65 @@
 package itemStore;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ItemCtrl {
 
-	Item itemAccess = new Item();
+
+	public ArrayList<Item> itemList = new ArrayList<Item>();
 
 
-//When testing, although the item was registered successfully, the "Actual" appears empty.
-	public ArrayList<String> itemList = new ArrayList<String>();
+	public int getItemListSize() {
 
-		public String createItem (String itemID, String itemName, double unitPrice) {
-
-			if (itemID.isEmpty() || itemName.isEmpty() || unitPrice <= 0.0) {
-				System.out.println("Invalid data for item.");
-			} else {
-				Item item = new Item(itemID, itemName, unitPrice);
-				itemList.add(item + ":" + itemName + "." + unitPrice);
-
-                System.out.println("Item " + itemID + " was registered successfully.");
-			}
-
-			return "Item " + itemID + " was registered successfully.";
-		}
-
-		public String removeItem (String itemID){
-
-			return "";
-		}
+		return itemList.size();
 	}
 
+	public String createItem(String itemID, String itemName, double unitPrice) {
+		Item itemAccess = findItem(itemID);
+
+		if (!Objects.isNull(itemAccess) || itemID.isEmpty() || itemName.isEmpty() || unitPrice <= 0.0) {
+			return "Invalid data for item.";
+		}
+		Item item = new Item(itemID, itemName, unitPrice);
+		itemList.add(item);
+
+		return "Item " + itemID + " was registered successfully.";
+	}
+
+	public Item findItem(String itemID) {
+		Item itemAccess = null;
+		for (Item item : itemList) {
+			if (item.getItemID().equals(itemID)) {
+				itemAccess = item;
+			}
+		}
+		return itemAccess;
+	}
+
+	public String updateItemName(String itemID, String itemName) {
+		Item itemAccess = findItem(itemID);
+
+		if (Objects.isNull(itemAccess)) {
+			return "Item " + itemID + " was not registered yet.";
+		}
+		if (itemID.isEmpty() || itemName.isEmpty()) {
+			return "Invalid data for item.";
+		}
+		itemAccess.setItemName(itemName);
+		return "Item " + itemID + " was updated successfully.";
+	}
+
+	public String updateItemPrice(String itemID, double unitPrice) {
+		Item itemAccess = findItem(itemID);
+
+		if (Objects.isNull(itemAccess)) {
+			return "Item " + itemID + " was not registered yet.";
+		}
+		if (itemID.isEmpty() || unitPrice <= 0.0) {
+			return "Invalid data for item.";
+		}
+
+		itemAccess.setUnitPrice(unitPrice);
+		return "Item " + itemID + " was updated successfully.";
+	}
+
+}

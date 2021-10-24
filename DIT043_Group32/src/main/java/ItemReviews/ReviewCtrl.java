@@ -169,7 +169,7 @@ public class ReviewCtrl {
                 int count = reviewdItemCount.get(itemID);
                 count++;
             }
-            // for the first review?
+            // for the first review
             else {
                 reviewdItemCount.put(itemID, 1);
             }
@@ -217,7 +217,7 @@ public class ReviewCtrl {
        }
        bestMeanGrade = reviewCount / reviewMap.size();
 
-       // Iterate
+
        for (String itemID : reviewMap.keySet()) {
            // If there are reviews before
            if (bestReviewedItemCount.containsKey(itemID)) {
