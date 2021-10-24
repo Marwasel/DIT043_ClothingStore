@@ -27,7 +27,7 @@ public class Epic5Regular {
             // G: Gross salary; N: Net salary
             facade.createEmployee("Emp1", "Elektra", 35000.50, "MSc", "Business");       // G: 47000.60; N: 37600.48
             facade.createEmployee("Emp2", "Blanca", 45000.00, "PhD", "Human Resources"); // G: 65750.00; N: 45450.00
-            facade.createEmployee("Emp3", "Pray Tell", 25000.25, "BSc");                 // G: 27500.27; N: 24750.24
+            facade.createEmployee("Emp3", "Pray Tell", 25000.25, "BSc");                 // G: 27500.28; N: 24750.24
             facade.createEmployee("Emp4", "Lulu", 20000.00, 9);                          // G: 21000.00; N: 21000.00
             facade.createEmployee("Emp5", "Angel", 28500.10, 7);                         // G: 28500.10; N: 28500.10
             facade.createEmployee("Emp6", "Candy", 35000.50, 4);                         // G:     0.00; N:     0.00
@@ -193,7 +193,7 @@ public class Epic5Regular {
     public void shouldPrintEmployee() throws Exception {
         String blancaMessage = "PhD Blanca's gross salary is 65750.00 SEK per month. Dept: Human Resources";
         String angelMessage  = "Angel's gross salary is 28500.10 SEK per month. GPA: 7";
-        String prayMessage   = "BSc Pray Tell's gross salary is 27500.27 SEK per month.";
+        String prayMessage   = "BSc Pray Tell's gross salary is 27500.28 SEK per month.";
         String rickyMessage  = "Ricky's gross salary is 23500.00 SEK per month.";
 
         assertEquals(blancaMessage, facade.printEmployee("Emp2"));
@@ -240,14 +240,14 @@ public class Epic5Regular {
 
     @Test
     public void shouldUpdateEmployee() throws Exception {
-        assertEquals("Employee Emp6 was updated successfully", facade.updateEmployeeName("Emp6", "Candy Ferocity"));
-        assertEquals("Employee Emp6 was updated successfully", facade.updateInternGPA("Emp6", 10));
-        assertEquals("Employee Emp4 was updated successfully", facade.updateInternGPA("Emp4", 2));
-        assertEquals("Employee Emp1 was updated successfully", facade.updateManagerDegree("Emp1", "PhD"));
-        assertEquals("Employee Emp1 was updated successfully", facade.updateDirectorDept("Emp1", "Technical"));
-        assertEquals("Employee Emp8 was updated successfully", facade.updateGrossSalary("Emp8", 15000.00));
-        assertEquals("Employee Emp3 was updated successfully", facade.updateGrossSalary("Emp3", 28000.99));
-        assertEquals("Employee Emp3 was updated successfully", facade.updateManagerDegree("Emp3", "MSc"));
+        assertEquals("Employee Emp6 was updated successfully.", facade.updateEmployeeName("Emp6", "Candy Ferocity"));
+        assertEquals("Employee Emp6 was updated successfully.", facade.updateInternGPA("Emp6", 10));
+        assertEquals("Employee Emp4 was updated successfully.", facade.updateInternGPA("Emp4", 2));
+        assertEquals("Employee Emp1 was updated successfully.", facade.updateManagerDegree("Emp1", "PhD"));
+        assertEquals("Employee Emp1 was updated successfully.", facade.updateDirectorDept("Emp1", "Technical"));
+        assertEquals("Employee Emp8 was updated successfully.", facade.updateGrossSalary("Emp8", 15000.00));
+        assertEquals("Employee Emp3 was updated successfully.", facade.updateGrossSalary("Emp3", 28000.99));
+        assertEquals("Employee Emp3 was updated successfully.", facade.updateManagerDegree("Emp3", "MSc"));
 
         String expectedElektra = "PhD Elektra's gross salary is 52250.67 SEK per month. Dept: Technical";
         String expectedDamon = "Damon's gross salary is 15000.00 SEK per month.";
