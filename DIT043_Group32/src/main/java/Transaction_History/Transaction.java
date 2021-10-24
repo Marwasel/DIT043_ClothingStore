@@ -21,5 +21,9 @@ public class Transaction {
 
     }
 
+  public Transaction(){
+    //Empty Constructor to get access to the class
+   }
+
 
 }

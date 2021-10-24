@@ -1,78 +1,48 @@
 package ItemReviews;
 
-import itemStore.Item;
+
+class Review {
+
+    String itemID;
+    int reviewGrade;
+    int reviewNumber;
+    String reviewComment;
 
 
-
- class Reviews {
-String itemID;
-int reviewGrade;
-String reviewComment;
-int reviewNumber;
-
-Item itemAccess = new Item();
-
-//Reviews review = new Reviews(itemID, reviewGrade, reviewComment, reviewNumber);
-
-
-
-    public Reviews(String itemID, int reviewGrade, String reviewComment, int reviewNumber) {
-
+    public Review(String itemID, String reviewComment, int reviewGrade ) {
         this.itemID = itemID;
-       this.reviewComment = reviewComment;
-       this.reviewGrade = reviewGrade;
-       this.reviewNumber = reviewNumber;
+        this.reviewComment = reviewComment;
+        this.reviewGrade = reviewGrade;
     }
-public Reviews(String itemID, String reviewComment, int reviewGrade ) {
-    this.itemID = itemID;
-    this.reviewComment = reviewComment;
-    this.reviewGrade = reviewGrade;
-}
+    public Review() {}
 
-     public Reviews() {
-
-     }
-
-
-     String getItemID(){
-         return itemID;
-     }
-
-     void setItemID(){
-         this.itemID = itemID;
-     }
-
-
-    int getReviewGrade(){
-
+    public int getReviewGrade() {
         return reviewGrade;
     }
 
-    void setReviewGrade() {
-       reviewGrade = reviewGrade;
-
+    public void setReviewGrade(int reviewGrade) {
+        this.reviewGrade = reviewGrade;
     }
 
-    String getReviewComment() {
-
-        return reviewComment;
-    }
-    void setReviewComment() {
-
-       reviewComment = reviewComment;
-    }
-
-    int getReviewNumber() {
+    public int getReviewNumber() {
         return reviewNumber;
     }
 
-    void setReviewNumber() {
-        reviewNumber = reviewNumber;
+    public void setReviewNumber(int reviewNumber) {
+        this.reviewNumber = reviewNumber;
     }
 
-   @Override
+    public String getReviewComment() {
+        return reviewComment;
+    }
+
+    public void setReviewComment(String reviewComment) {
+        this.reviewComment = reviewComment;
+    }
+
+    @Override
     public String toString() {
-       return "Review(s) for" + itemID + ":" + itemAccess.itemName + "." + itemAccess.unitPrice ;
+        return "Grade: " + this.reviewGrade + "." + this.reviewComment;
     }
 
 }

@@ -2,6 +2,7 @@ package Transaction_History;
 
 import java.util.List;
 import Clothing_Store.UserInput;
+import itemStore.Item;
 import itemStore.ItemCtrl;
 
 public class TransactionsHistory {
@@ -55,12 +56,12 @@ public class TransactionsHistory {
     }
 
     //Prints all transactions of a specific item
-    public String PrintAllItemTransactions(String itemID, ItemCtrl items){
+    public String PrintAllItemTransactions(String itemID){
         String itemName = "";
         double unitPrice = 0;
-
+       ItemCtrl itemAccess = new ItemCtrl();
         //Extracts an itemName and unitPrice from the list of registered items
-        for (String itemInfo : items.itemList)
+            for ( String itemInfo : itemAccess.itemList)
         {
             if (itemInfo.contains(itemID))
             {
