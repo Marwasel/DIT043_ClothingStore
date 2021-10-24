@@ -56,41 +56,40 @@ public class TransactionsHistory {
     }
 
     //Prints all transactions of a specific item
-    public String PrintAllItemTransactions(String itemID){
-        String itemName = "";
-        double unitPrice = 0;
-       ItemCtrl itemAccess = new ItemCtrl();
-        //Extracts an itemName and unitPrice from the list of registered items
-            for ( String itemInfo : itemAccess.itemList)
-        {
-            if (itemInfo.contains(itemID))
-            {
-                //This itemID is registered
-                int begin = itemInfo.indexOf(":");
-                int end = itemInfo.indexOf(("."));
-                itemName = itemInfo.substring(begin,end);
+    public String PrintAllItemTransactions(String itemID, ItemCtrl items){
 
-                int index = itemInfo.indexOf(".");
-                unitPrice = Double.parseDouble(itemInfo.substring(index));
-                break;
-            }
-            else
+        boolean transactionExists = false;
+        boolean idExists = false;
+        Item Myitem = null;
+
+        for ( Item item : items.itemList)
+        {
+            if (item.getItemID() == itemID)
             {
-                //This itemID is not registered
-                return "Item <ID> was not registered yet.";
+                Myitem = item;
+                idExists = true;
+
             }
         }
+        if(!idExists){
+            //This itemID is not registered
+            return "Item " + itemID + " was not registered yet.";
+        }
         String output = "";
-        output += "Transactions for item: " + itemID + " : " + itemName + ". " + unitPrice + "SEK\n";
+        output += "Transactions for item: " + itemID + " : " + Myitem.itemName + ". " + Myitem.unitPrice + "SEK\n";
         for (Transaction transaction : historyList)
         {
             if (transaction.itemID == itemID)
-                output += itemID + " : " + transaction.amount + " item(s). " + transaction.totalPrice + "SEK\n";
-            else
             {
-                output = "Transactions for item: <item ID>: <item name>. <unit price> SEK\n" +
-                        "No transactions have been registered for item <item ID> yet.\n";
+                output += itemID + " : " + transaction.amount + " item(s). " + transaction.totalPrice + "SEK\n";
+                transactionExists = true;
             }
+
+        }
+        if (!transactionExists)
+        {
+            output = "Transactions for item: " + itemID + " : " + Myitem.itemName + "." + Myitem.unitPrice + " SEK\n" +
+                    "No transactions have been registered for item " + itemID + " yet.\n";
         }
         return  output;
     }

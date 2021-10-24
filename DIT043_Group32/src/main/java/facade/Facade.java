@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Transaction_History.TransactionsHistory;
 
 public class Facade {
 
@@ -17,6 +18,8 @@ public class Facade {
 
     ItemCtrl itemCtrlAccess = new ItemCtrl();
     ReviewCtrl reviewCtrlAccess = new ReviewCtrl();
+
+    TransactionsHistory history = new TransactionsHistory();
 
     // ItemCtrl Related Methods
     public String createItem(String itemID, String itemName, double unitPrice){
@@ -195,19 +198,21 @@ public class Facade {
     }
 
     public String printItemTransactions(String itemID) {
+        String output = history.PrintAllItemTransactions(itemID, itemCtrlAccess);
+        System.out.print(output);
         return "";
     }
 
     public int getTotalUnitsSold() {
-        return -1;
+        return history.UnitsSum();
     }
 
     public int getTotalTransactions() {
-        return -1;
+        return history.TotalTransactions();
     }
 
     public double getProfit(String itemID) {
-        return -1.0;
+        return history.ProfitSum(itemID);
     }
 
     public int getUnitsSolds(String itemID) {
